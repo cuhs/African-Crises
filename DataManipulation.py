@@ -17,5 +17,7 @@ class DataManipulation:
         return table[label].std()
     def standardizeColumn(self, table, label):
         return (table[label] - table[label].mean())/table[label].std()
+    def writeToCsv(self, table, path):
+        table.to_csv(path, index = False)
     
 

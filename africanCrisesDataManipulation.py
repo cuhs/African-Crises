@@ -15,6 +15,7 @@ def main():
     readData['exch_usd'] = africadata.standardizeColumn(readData, 'exch_usd')
     readData['inflation_annual_cpi'] = africadata.standardizeColumn(readData, 'inflation_annual_cpi')
     print(readData['inflation_annual_cpi'])
+    #africadata.writeToCsv(readData, './adjusted_african_crises_data.csv')
     
 if __name__ == '__main__':
     main()
