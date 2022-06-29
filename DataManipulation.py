@@ -19,5 +19,7 @@ class DataManipulation:
         return (table[label] - table[label].mean())/table[label].std()
     def writeToCsv(self, table, path):
         table.to_csv(path, index = False)
+    def clipData(self, table, min, max):
+        return table.clip(min, max)
     
 
