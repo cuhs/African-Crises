@@ -21,5 +21,13 @@ class DataManipulation:
         table.to_csv(path, index = False)
     def clipData(self, table, min, max):
         return table.clip(min, max)
+    def swapColumns(self, table, col1, col2):
+        cols = list(table.columns)
+        a, b = cols.index(col1), cols.index(col2)
+        cols[b], cols[a] = cols[a], cols[b]
+        table = table[cols]
+        return table
+    def getColNum(self, table):
+        return table.shape[1]
     
 
