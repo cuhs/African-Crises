@@ -5,6 +5,9 @@ import DataManipulation
 from sklearn.linear_model import Perceptron
 from sklearn import tree
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
+from sklearn.linear_model import LogisticRegression
 
 africadata = DataManipulation.DataManipulation()
 def main():
@@ -21,15 +24,98 @@ def main():
     readData['inflation_annual_cpi'] = africadata.standardizeColumn(readData, 'inflation_annual_cpi')
     #swap systemic_crisis with banking_crisis
     readData = africadata.swapColumns(readData, 'year', 'systemic_crisis')
+    readData = africadata.shuffleData(readData)
     #slice out X matrix
     X = readData.iloc[0:readData.shape[0], 1:readData.shape[1]].to_numpy()
     #slice out y vector
     y = readData.iloc[0:readData.shape[0], 0].to_numpy()
-    w = np.ones((readData.shape[1] - 1))
-    '''someTree = runDecisionTree(X, y)
-    print(someTree.predict([[10,-.4,0,1,1,-0.3,0,0,0,1]]))'''
-    '''someForest = runRandomForest(X,y)
-    print(someForest.predict([[10,70,1,1,1,9,1,1,1,0]]))'''
+    #w = np.ones((readData.shape[1] - 1))
+    
+    #split into train and test data
+    X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2)
+    
+    #run and test decision tree
+    someTree = runDecisionTree(X_train, y_train) 
+    params = {'min_samples_split': [2, 5, 10], 'min_samples_leaf': range(1,10), }
+    clf = GridSearchCV(someTree, params)
+    print("Decision Tree--------------------")
+    clf.fit(X_train, y_train)
+    print(clf.best_params_)
+    y_pred = clf.predict(X_test)
+    true_positive = np.sum(np.logical_and(y_pred, y_test))
+    true_negative = np.sum(np.logical_not(np.logical_or(y_pred, y_test)))
+    false_positive = 0
+    false_negative = 0
+    for i in range(0, y_test.size):
+        if y_pred[i] and not y_test[i]:
+            false_positive = false_positive + 1
+        elif y_test[i] and not y_pred[i]:
+            false_negative = false_negative + 1
+    print("true pos: ")
+    print(true_positive)
+    print("true neg: ")
+    print(true_negative)
+    print("false pos: ")
+    print(false_positive)
+    print("false neg: ")
+    print(false_negative)
+    
+    #run and test random forest
+    someForest = RandomForestClassifier()
+    params = {'n_estimators': [100, 200, 300], 'min_samples_leaf': range(1,10), }
+    clf = GridSearchCV(someForest, params)
+    print("Random Forest--------------------")
+    clf.fit(X_train, y_train)
+    print(clf.best_params_)
+    y_pred = clf.predict(X_test)
+    true_positive = np.sum(np.logical_and(y_pred, y_test))
+    true_negative = np.sum(np.logical_not(np.logical_or(y_pred, y_test)))
+    false_positive = 0
+    false_negative = 0
+    for i in range(0, y_test.size):
+        if y_pred[i] and not y_test[i]:
+            false_positive = false_positive + 1
+        elif y_test[i] and not y_pred[i]:
+            false_negative = false_negative + 1
+    print("true pos: ")
+    print(true_positive)
+    print("true neg: ")
+    print(true_negative)
+    print("false pos: ")
+    print(false_positive)
+    print("false neg: ")
+    print(false_negative)
+    
+    logistClass = LogisticRegression()
+    params = {'C': [0.01, 0.1, 1.0, 10.0], 'fit_intercept': [False, True], 'max_iter': [500, 1000, 1500]}
+    clf = GridSearchCV(logistClass, params)
+    print("Logistic Regression--------------------")
+    clf.fit(X_train, y_train)
+    print(clf.best_params_)
+    y_pred = clf.predict(X_test)
+    true_positive = np.sum(np.logical_and(y_pred, y_test))
+    true_negative = np.sum(np.logical_not(np.logical_or(y_pred, y_test)))
+    false_positive = 0
+    false_negative = 0
+    for i in range(0, y_test.size):
+        if y_pred[i] and not y_test[i]:
+            false_positive = false_positive + 1
+        elif y_test[i] and not y_pred[i]:
+            false_negative = false_negative + 1
+    print("true pos: ")
+    print(true_positive)
+    print("true neg: ")
+    print(true_negative)
+    print("false pos: ")
+    print(false_positive)
+    print("false neg: ")
+    print(false_negative)
+    
+    #print(sorted(clf.cv_results_.keys()))
+    # print("Random forest score: ")
+    # print(clf.score(X_test,y_test))
+    
+    #print(someForest.predict([[10,70,1,1,1,9,1,1,1,0]]))
     #w = trainPerceptron(X, y, w, .01, 200)
     #print(w)
     #print(testPerceptron(X, y,w))

@@ -27,7 +27,7 @@ class DataManipulation:
         cols[b], cols[a] = cols[a], cols[b]
         table = table[cols]
         return table
-    def getColNum(self, table):
-        return table.shape[1]
+    def shuffleData(self, table):
+        return table.sample(frac = 1)
     
 
