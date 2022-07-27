@@ -8,6 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score
 
 africadata = DataManipulation.DataManipulation()
 def main():
@@ -40,6 +41,8 @@ def main():
     clf = GridSearchCV(someTree, params)
     print("Decision Tree--------------------")
     clf.fit(X_train, y_train)
+    scores = cross_val_score(clf, X_train, y_train)
+    print(scores)
     print(clf.best_params_)
     y_pred = clf.predict(X_test)
     true_positive = np.sum(np.logical_and(y_pred, y_test))
@@ -62,10 +65,12 @@ def main():
     
     #run and test random forest
     someForest = RandomForestClassifier()
-    params = {'n_estimators': [100, 200, 300], 'min_samples_leaf': range(1,10), }
+    params = {'n_estimators': [100, 200, 300], 'min_samples_leaf': range(1,5), }
     clf = GridSearchCV(someForest, params)
     print("Random Forest--------------------")
     clf.fit(X_train, y_train)
+    scores = cross_val_score(clf, X_train, y_train)
+    print(scores)
     print(clf.best_params_)
     y_pred = clf.predict(X_test)
     true_positive = np.sum(np.logical_and(y_pred, y_test))
@@ -91,6 +96,8 @@ def main():
     clf = GridSearchCV(logistClass, params)
     print("Logistic Regression--------------------")
     clf.fit(X_train, y_train)
+    scores = cross_val_score(clf, X_train, y_train)
+    print(scores)
     print(clf.best_params_)
     y_pred = clf.predict(X_test)
     true_positive = np.sum(np.logical_and(y_pred, y_test))
