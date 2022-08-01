@@ -163,7 +163,7 @@ def main():
     #w = trainPerceptron(X, y, w, .01, 200)
     #print(w)
     #print(testPerceptron(X, y,w))
-    #africadata.writeToCsv(readData, './adjusted_african_crises_data.csv')
+    africadata.writeToCsv(readData, './adjusted_african_crises_data.csv')
 
 def testPerceptron(X, y, w):
     correct = 0

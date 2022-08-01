@@ -29,5 +29,7 @@ class DataManipulation:
         return table
     def shuffleData(self, table):
         return table.sample(frac = 1)
+    def splitString(self, str, delim):
+        return str.split(delim)
     
 
