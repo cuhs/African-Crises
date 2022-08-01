@@ -18,11 +18,12 @@ def main():
     readData = africadata.dropColumn(readData, 'case')
     readData = africadata.dropColumn(readData, 'cc3')
     readData = africadata.dropColumn(readData, 'country')  
+    readData = africadata.dropColumn(readData, 'inflation_annual_cpi')  
     minVal = africadata.findMin(readData, 'year')
     readData['year'] = africadata.subtractScalar(readData, 'year', minVal)
     readData = africadata.clipData(readData, -500, 500)
     readData['exch_usd'] = africadata.standardizeColumn(readData, 'exch_usd')
-    readData['inflation_annual_cpi'] = africadata.standardizeColumn(readData, 'inflation_annual_cpi')
+    #readData['inflation_annual_cpi'] = africadata.standardizeColumn(readData, 'inflation_annual_cpi')
     #swap systemic_crisis with banking_crisis
     readData = africadata.swapColumns(readData, 'year', 'systemic_crisis')
     readData = africadata.shuffleData(readData)

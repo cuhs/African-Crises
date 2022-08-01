@@ -24,22 +24,23 @@ def main():
     minVal = europedata.findMin(readData, 'Year')
     readData['Year'] = europedata.subtractScalar(readData, 'Year', minVal)
     readData = readData.reset_index(drop=True)
-    for i in range(0, readData.shape[0]):
+    for i, row in readData.iterrows():
         gotStr = readData['exch_usd'].iloc[i].split("e",1)
+        inflStr = readData['Inflation'].iloc[i]
         if(len(gotStr)>1):
             #print(gotStr[1])
             tens = pow(10,(float)(gotStr[1][1:len(gotStr[1])]))
             #print(tens)
             readData.at[i, 'exch_usd'] = float(gotStr[0])/tens
             #print(float(gotStr[0])/tens)
-        #else:
-        #    readData.at[i, 'exch_usd'] = float(readData.at[i, 'exch_usd'])
+        else:
+            readData.at[i, 'exch_usd'] = float(gotStr[0])
         #    print((float)(readData['exch_usd'].iloc[i]))
-        #readData.at[i, 'Inflation'] = float(readData.at[i, 'Inflation'])
+        readData.at[i, 'Inflation'] = float(inflStr)
         '''
         TODO: fix at not working, then get clipData and standardization working
         '''
-    readData = readData.astype('float')    
+    #readData = readData.astype('float')    
         
     #readData = europedata.clipData(readData, -500, 500)
     #readData['exch_usd'] = europedata.standardizeColumn(readData, 'exch_usd')
