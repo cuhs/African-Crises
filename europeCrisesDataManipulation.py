@@ -14,19 +14,19 @@ europedata = DataManipulation.DataManipulation()
 def main():
     readData = pd.read_csv("./Europe_crisis.csv")
     readData = readData.replace(' ', np.NaN)
-    readData.replace('', np.NaN)
     readData = readData.dropna()
     readData = europedata.dropColumn(readData, readData.columns[0])
     readData = europedata.dropColumn(readData, 'CC3')
     readData = europedata.dropColumn(readData, 'Country')
     readData = europedata.dropColumn(readData, 'National Currency')
     readData = europedata.dropColumn(readData, 'exch_sources')
+    readData = europedata.dropColumn(readData, 'Sovereign External debt1')
+    readData = europedata.dropColumn(readData, 'Inflation')
     minVal = europedata.findMin(readData, 'Year')
     readData['Year'] = europedata.subtractScalar(readData, 'Year', minVal)
     readData = readData.reset_index(drop=True)
     for i, row in readData.iterrows():
         gotStr = readData['exch_usd'].iloc[i].split("e",1)
-        inflStr = readData['Inflation'].iloc[i]
         if(len(gotStr)>1):
             #print(gotStr[1])
             tens = pow(10,(float)(gotStr[1][1:len(gotStr[1])]))
@@ -36,15 +36,13 @@ def main():
         else:
             readData.at[i, 'exch_usd'] = float(gotStr[0])
         #    print((float)(readData['exch_usd'].iloc[i]))
-        readData.at[i, 'Inflation'] = float(inflStr)
-        '''
-        TODO: fix at not working, then get clipData and standardization working
-        '''
+        #readData.at[i, 'Inflation'] = float(inflStr)
+    readData = readData.astype({"exch_usd": float})
+    print(readData.dtypes)
     #readData = readData.astype('float')    
         
-    #readData = europedata.clipData(readData, -500, 500)
-    #readData['exch_usd'] = europedata.standardizeColumn(readData, 'exch_usd')
-    #readData['Inflation'] = europedata.standardizeColumn(readData, 'Inflation')
+    readData = europedata.clipData(readData, -500, 500)
+    readData['exch_usd'] = europedata.standardizeColumn(readData, 'exch_usd')
     print(readData)
     readData.to_csv('./adjusted_european_crises_data.csv', index = True)
 
