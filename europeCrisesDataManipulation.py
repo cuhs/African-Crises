@@ -43,6 +43,7 @@ def main():
         
     readData = europedata.clipData(readData, -500, 500)
     readData['exch_usd'] = europedata.standardizeColumn(readData, 'exch_usd')
+    print(np.sum(readData['Systemic Crisis']))
     print(readData)
     readData.to_csv('./adjusted_european_crises_data.csv', index = True)
 

@@ -35,6 +35,7 @@ def main():
     
     #split into train and test data
     X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2)
+    print(np.sum(readData['systemic_crisis']))
     
     #run and test decision tree
     someTree = runDecisionTree(X_train, y_train) 
