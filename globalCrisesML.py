@@ -55,169 +55,169 @@ def main():
     X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2)
     
     #run and test decision tree
-    someTree = tree.DecisionTreeClassifier()
-    params = {'min_samples_split': range(2,15), 'min_samples_leaf': range(1,10), }
-    clf = GridSearchCV(someTree, params)
-    print("Decision Tree--------------------")
-    clf.fit(X_train, y_train)
-    scores = cross_val_score(clf, X_train, y_train)
-    print(scores)
-    print(clf.best_params_)
-    y_pred = clf.predict(X_test)
-    true_positive = np.sum(np.logical_and(y_pred, y_test))
-    true_negative = np.sum(np.logical_not(np.logical_or(y_pred, y_test)))
-    false_positive = 0
-    false_negative = 0
-    for i in range(0, y_test.size):
-        if y_pred[i] and not y_test[i]:
-            false_positive = false_positive + 1
-        elif y_test[i] and not y_pred[i]:
-            false_negative = false_negative + 1
-    print("true pos: ")
-    print(true_positive)
-    print("true neg: ")
-    print(true_negative)
-    print("false pos: ")
-    print(false_positive)
-    print("false neg: ")
-    print(false_negative)
-    precision = true_positive/(true_positive+false_positive)
-    recall = true_positive/(true_positive+false_negative)
-    accuracy = (true_positive+true_negative)/(true_positive+false_positive+true_negative+false_negative)
-    f1score = (2*precision*recall)/(precision+recall)
-    print("precision: ")
-    print(precision)
-    print("recall: ")
-    print(recall)
-    print("accuracy: ")
-    print(accuracy)
-    print("f1score: ")
-    print(f1score)
+    # someTree = tree.DecisionTreeClassifier()
+    # params = {'min_samples_split': range(2,15), 'min_samples_leaf': range(1,10), }
+    # clf = GridSearchCV(someTree, params)
+    # print("Decision Tree--------------------")
+    # clf.fit(X_train, y_train)
+    # scores = cross_val_score(clf, X_train, y_train)
+    # print(scores)
+    # print(clf.best_params_)
+    # y_pred = clf.predict(X_test)
+    # true_positive = np.sum(np.logical_and(y_pred, y_test))
+    # true_negative = np.sum(np.logical_not(np.logical_or(y_pred, y_test)))
+    # false_positive = 0
+    # false_negative = 0
+    # for i in range(0, y_test.size):
+    #     if y_pred[i] and not y_test[i]:
+    #         false_positive = false_positive + 1
+    #     elif y_test[i] and not y_pred[i]:
+    #         false_negative = false_negative + 1
+    # print("true pos: ")
+    # print(true_positive)
+    # print("true neg: ")
+    # print(true_negative)
+    # print("false pos: ")
+    # print(false_positive)
+    # print("false neg: ")
+    # print(false_negative)
+    # precision = true_positive/(true_positive+false_positive)
+    # recall = true_positive/(true_positive+false_negative)
+    # accuracy = (true_positive+true_negative)/(true_positive+false_positive+true_negative+false_negative)
+    # f1score = (2*precision*recall)/(precision+recall)
+    # print("precision: ")
+    # print(precision)
+    # print("recall: ")
+    # print(recall)
+    # print("accuracy: ")
+    # print(accuracy)
+    # print("f1score: ")
+    # print(f1score)
     
-    #run and test random forest
-    someForest = RandomForestClassifier()
-    params = {'n_estimators': [100, 200, 300], 'min_samples_leaf': range(1,5), }
-    clf = GridSearchCV(someForest, params)
-    print("Random Forest--------------------")
-    clf.fit(X_train, y_train)
-    scores = cross_val_score(clf, X_train, y_train)
-    print(scores)
-    print(clf.best_params_)
-    y_pred = clf.predict(X_test)
-    true_positive = np.sum(np.logical_and(y_pred, y_test))
-    true_negative = np.sum(np.logical_not(np.logical_or(y_pred, y_test)))
-    false_positive = 0
-    false_negative = 0
-    for i in range(0, y_test.size):
-        if y_pred[i] and not y_test[i]:
-            false_positive = false_positive + 1
-        elif y_test[i] and not y_pred[i]:
-            false_negative = false_negative + 1
-    print("true pos: ")
-    print(true_positive)
-    print("true neg: ")
-    print(true_negative)
-    print("false pos: ")
-    print(false_positive)
-    print("false neg: ")
-    print(false_negative)
-    precision = true_positive/(true_positive+false_positive)
-    recall = true_positive/(true_positive+false_negative)
-    accuracy = (true_positive+true_negative)/(true_positive+false_positive+true_negative+false_negative)
-    f1score = (2*precision*recall)/(precision+recall)
-    print("precision: ")
-    print(precision)
-    print("recall: ")
-    print(recall)
-    print("accuracy: ")
-    print(accuracy)
-    print("f1score: ")
-    print(f1score)
+    # #run and test random forest
+    # someForest = RandomForestClassifier()
+    # params = {'n_estimators': [100, 200, 300], 'min_samples_leaf': range(1,5)}
+    # clf = GridSearchCV(someForest, params)
+    # print("Random Forest--------------------")
+    # clf.fit(X_train, y_train)
+    # scores = cross_val_score(clf, X_train, y_train)
+    # print(scores)
+    # print(clf.best_params_)
+    # y_pred = clf.predict(X_test)
+    # true_positive = np.sum(np.logical_and(y_pred, y_test))
+    # true_negative = np.sum(np.logical_not(np.logical_or(y_pred, y_test)))
+    # false_positive = 0
+    # false_negative = 0
+    # for i in range(0, y_test.size):
+    #     if y_pred[i] and not y_test[i]:
+    #         false_positive = false_positive + 1
+    #     elif y_test[i] and not y_pred[i]:
+    #         false_negative = false_negative + 1
+    # print("true pos: ")
+    # print(true_positive)
+    # print("true neg: ")
+    # print(true_negative)
+    # print("false pos: ")
+    # print(false_positive)
+    # print("false neg: ")
+    # print(false_negative)
+    # precision = true_positive/(true_positive+false_positive)
+    # recall = true_positive/(true_positive+false_negative)
+    # accuracy = (true_positive+true_negative)/(true_positive+false_positive+true_negative+false_negative)
+    # f1score = (2*precision*recall)/(precision+recall)
+    # print("precision: ")
+    # print(precision)
+    # print("recall: ")
+    # print(recall)
+    # print("accuracy: ")
+    # print(accuracy)
+    # print("f1score: ")
+    # print(f1score)
     
     #logistic regression
-    logistClass = LogisticRegression()
-    params = {'C': [0.01, 0.1, 1.0, 10.0], 'fit_intercept': [False, True], 'max_iter': [500, 1000, 1500]}
-    clf = GridSearchCV(logistClass, params)
-    print("Logistic Regression--------------------")
-    clf.fit(X_train, y_train)
-    scores = cross_val_score(clf, X_train, y_train)
-    print(scores)
-    print(clf.best_params_)
-    y_pred = clf.predict(X_test)
-    true_positive = np.sum(np.logical_and(y_pred, y_test))
-    true_negative = np.sum(np.logical_not(np.logical_or(y_pred, y_test)))
-    false_positive = 0
-    false_negative = 0
-    for i in range(0, y_test.size):
-        if y_pred[i] and not y_test[i]:
-            false_positive = false_positive + 1
-        elif y_test[i] and not y_pred[i]:
-            false_negative = false_negative + 1
-    print("true pos: ")
-    print(true_positive)
-    print("true neg: ")
-    print(true_negative)
-    print("false pos: ")
-    print(false_positive)
-    print("false neg: ")
-    print(false_negative)
-    precision = true_positive/(true_positive+false_positive)
-    recall = true_positive/(true_positive+false_negative)
-    accuracy = (true_positive+true_negative)/(true_positive+false_positive+true_negative+false_negative)
-    f1score = (2*precision*recall)/(precision+recall)
-    print("precision: ")
-    print(precision)
-    print("recall: ")
-    print(recall)
-    print("accuracy: ")
-    print(accuracy)
-    print("f1score: ")
-    print(f1score)
+    # logistClass = LogisticRegression()
+    # params = {'C': [0.01, 0.1, 1.0, 10.0], 'fit_intercept': [False, True], 'max_iter': [500, 1000, 1500]}
+    # clf = GridSearchCV(logistClass, params)
+    # print("Logistic Regression--------------------")
+    # clf.fit(X_train, y_train)
+    # scores = cross_val_score(clf, X_train, y_train)
+    # print(scores)
+    # print(clf.best_params_)
+    # y_pred = clf.predict(X_test)
+    # true_positive = np.sum(np.logical_and(y_pred, y_test))
+    # true_negative = np.sum(np.logical_not(np.logical_or(y_pred, y_test)))
+    # false_positive = 0
+    # false_negative = 0
+    # for i in range(0, y_test.size):
+    #     if y_pred[i] and not y_test[i]:
+    #         false_positive = false_positive + 1
+    #     elif y_test[i] and not y_pred[i]:
+    #         false_negative = false_negative + 1
+    # print("true pos: ")
+    # print(true_positive)
+    # print("true neg: ")
+    # print(true_negative)
+    # print("false pos: ")
+    # print(false_positive)
+    # print("false neg: ")
+    # print(false_negative)
+    # precision = true_positive/(true_positive+false_positive)
+    # recall = true_positive/(true_positive+false_negative)
+    # accuracy = (true_positive+true_negative)/(true_positive+false_positive+true_negative+false_negative)
+    # f1score = (2*precision*recall)/(precision+recall)
+    # print("precision: ")
+    # print(precision)
+    # print("recall: ")
+    # print(recall)
+    # print("accuracy: ")
+    # print(accuracy)
+    # print("f1score: ")
+    # print(f1score)
     
     
-    #ridge classifier
-    ridgeClass = RidgeClassifier()
-    params = {'alpha': [0.01, 0.1, 1, 10], 'normalize': [True, False], 'max_iter': [500]}
-    clf = GridSearchCV(ridgeClass, params)
-    print("Ridge Classifier--------------------")
-    clf.fit(X_train, y_train)
-    scores = cross_val_score(clf, X_train, y_train)
-    print(scores)
-    print(clf.best_params_)
-    y_pred = clf.predict(X_test)
-    true_positive = np.sum(np.logical_and(y_pred, y_test))
-    true_negative = np.sum(np.logical_not(np.logical_or(y_pred, y_test)))
-    false_positive = 0
-    false_negative = 0
-    for i in range(0, y_test.size):
-        if y_pred[i] and not y_test[i]:
-            false_positive = false_positive + 1
-        elif y_test[i] and not y_pred[i]:
-            false_negative = false_negative + 1
-    print("true pos: ")
-    print(true_positive)
-    print("true neg: ")
-    print(true_negative)
-    print("false pos: ")
-    print(false_positive)
-    print("false neg: ")
-    print(false_negative)
-    precision = true_positive/(true_positive+false_positive)
-    recall = true_positive/(true_positive+false_negative)
-    accuracy = (true_positive+true_negative)/(true_positive+false_positive+true_negative+false_negative)
-    f1score = (2*precision*recall)/(precision+recall)
-    print("precision: ")
-    print(precision)
-    print("recall: ")
-    print(recall)
-    print("accuracy: ")
-    print(accuracy)
-    print("f1score: ")
-    print(f1score)
+    # #ridge classifier
+    # ridgeClass = RidgeClassifier()
+    # params = {'alpha': [0.01, 0.1, 1, 10], 'normalize': [True, False], 'max_iter': [500]}
+    # clf = GridSearchCV(ridgeClass, params)
+    # print("Ridge Classifier--------------------")
+    # clf.fit(X_train, y_train)
+    # scores = cross_val_score(clf, X_train, y_train)
+    # print(scores)
+    # print(clf.best_params_)
+    # y_pred = clf.predict(X_test)
+    # true_positive = np.sum(np.logical_and(y_pred, y_test))
+    # true_negative = np.sum(np.logical_not(np.logical_or(y_pred, y_test)))
+    # false_positive = 0
+    # false_negative = 0
+    # for i in range(0, y_test.size):
+    #     if y_pred[i] and not y_test[i]:
+    #         false_positive = false_positive + 1
+    #     elif y_test[i] and not y_pred[i]:
+    #         false_negative = false_negative + 1
+    # print("true pos: ")
+    # print(true_positive)
+    # print("true neg: ")
+    # print(true_negative)
+    # print("false pos: ")
+    # print(false_positive)
+    # print("false neg: ")
+    # print(false_negative)
+    # precision = true_positive/(true_positive+false_positive)
+    # recall = true_positive/(true_positive+false_negative)
+    # accuracy = (true_positive+true_negative)/(true_positive+false_positive+true_negative+false_negative)
+    # f1score = (2*precision*recall)/(precision+recall)
+    # print("precision: ")
+    # print(precision)
+    # print("recall: ")
+    # print(recall)
+    # print("accuracy: ")
+    # print(accuracy)
+    # print("f1score: ")
+    # print(f1score)
     
-    #support vector machine
+    # #support vector machine
     SVMclass = SVC()
-    params = {'C': [0.01, 0.1, 1], 'kernel': ['linear', 'poly', 'rbf', 'sigmoid'], 'degree': range(2,3), 'tol': [0.001], 'max_iter': [1000]}
+    params = {'C': [0.01, 0.1, 1], 'kernel': ['poly', 'rbf'], 'degree': range(2,3), 'tol': [0.001], 'max_iter': [1000]}
     clf = GridSearchCV(SVMclass, params)
     print("Support Vector Machine--------------------")
     clf.fit(X_train, y_train)
